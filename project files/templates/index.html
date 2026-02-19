@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rainfall Prediction — Will it rain tomorrow?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>Monsoon Mitra - Rainfall Prediction</h1>
+      <p class="tagline">Enter today's weather to predict rain tomorrow</p>
+      <div class="api-status" id="apiStatus">Checking API…</div>
+    </header>
+
+    <main class="main">
+      <form class="form card" id="predictForm">
+        <h2>Today's weather</h2>
+        <div class="form-grid">
+          <label>
+            <span>Min temp (°C)</span>
+            <input type="number" name="MinTemp" step="any" placeholder="e.g. 12" required />
+          </label>
+          <label>
+            <span>Max temp (°C)</span>
+            <input type="number" name="MaxTemp" step="any" placeholder="e.g. 24" required />
+          </label>
+          <label>
+            <span>Rainfall (mm)</span>
+            <input type="number" name="Rainfall" step="any" min="0" placeholder="e.g. 0" required />
+          </label>
+          <label>
+            <span>Wind gust speed (km/h)</span>
+            <input type="number" name="WindGustSpeed" step="any" min="0" placeholder="e.g. 40" required />
+          </label>
+          <label>
+            <span>Wind speed 9am (km/h)</span>
+            <input type="number" name="WindSpeed9am" step="any" min="0" placeholder="e.g. 14" required />
+          </label>
+          <label>
+            <span>Wind speed 3pm (km/h)</span>
+            <input type="number" name="WindSpeed3pm" step="any" min="0" placeholder="e.g. 19" required />
+          </label>
+          <label>
+            <span>Humidity 9am (%)</span>
+            <input type="number" name="Humidity9am" step="any" min="0" max="100" placeholder="e.g. 69" required />
+          </label>
+          <label>
+            <span>Humidity 3pm (%)</span>
+            <input type="number" name="Humidity3pm" step="any" min="0" max="100" placeholder="e.g. 52" required />
+          </label>
+          <label>
+            <span>Pressure 9am (hPa)</span>
+            <input type="number" name="Pressure9am" step="any" placeholder="e.g. 1017.6" required />
+          </label>
+          <label>
+            <span>Pressure 3pm (hPa)</span>
+            <input type="number" name="Pressure3pm" step="any" placeholder="e.g. 1015.2" required />
+          </label>
+          <label>
+            <span>Temp 9am (°C)</span>
+            <input type="number" name="Temp9am" step="any" placeholder="e.g. 17" required />
+          </label>
+          <label>
+            <span>Temp 3pm (°C)</span>
+            <input type="number" name="Temp3pm" step="any" placeholder="e.g. 21.7" required />
+          </label>
+          <label class="full">
+            <span>Rain today?</span>
+            <select name="RainToday" required>
+              <option value="">Select</option>
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+          </label>
+        </div>
+        <button type="submit" class="btn" id="submitBtn">Predict rain tomorrow</button>
+      </form>
+
+      <section class="result card" id="resultSection" hidden>
+        <h2>Prediction</h2>
+        <div class="result-visual" id="resultVisual">
+          <div class="result-img result-img-rain" id="resultImgRain" aria-hidden="true">
+            <img src="/static/images/rain.svg" alt="Rain expected" class="result-illustration" />
+          </div>
+          <div class="result-img result-img-sun" id="resultImgSun" aria-hidden="true">
+            <img src="/static/images/sun.svg" alt="No rain expected" class="result-illustration" />
+          </div>
+        </div>
+        <div class="result-percent" id="resultPercent" aria-live="polite">0%</div>
+        <div class="result-value" id="resultValue">—</div>
+        <div class="result-probability" id="resultProbability"></div>
+
+        <div class="intensity-block" id="intensityBlock">
+          <h3 class="intensity-title">Rainfall intensity</h3>
+          <div class="intensity-badge" id="intensityBadge">—</div>
+          <p class="intensity-suggestion" id="intensitySuggestion"></p>
+        </div>
+
+        <div class="agri-section" id="agriSection">
+          <h3 class="agri-title">Agriculture suggestions</h3>
+          <div class="agri-list" id="agriList"></div>
+        </div>
+      </section>
+
+      <div class="error card" id="errorBox" hidden></div>
+    </main>
+
+    <footer class="footer">
+      <p>Rainfall Prediction · Weather data → Rain Tomorrow</p>
+    </footer>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
